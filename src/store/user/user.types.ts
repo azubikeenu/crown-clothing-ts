@@ -1,3 +1,5 @@
+import { ObjectProperties, UserData } from '../../utils/firebase.utils';
+
 export enum USER_ACTIONS {
   SET_CURRENT_USER = 'user/SET_CURRENT_USER',
   CHECK_USER_SESSION = 'user/CHECK_USER_SESSION',
@@ -13,8 +15,13 @@ export enum USER_ACTIONS {
   SIGN_OUT_FAIURE = 'user/SIGN_OUT_FAILURE',
 }
 
-export type User = {
+export type UserSignUp = {
   displayName: string;
   email: string;
-  createdAt: string;
+  password: string;
+};
+
+export type UserSignUpSuccess = {
+  user: UserData;
+  objectProperties: ObjectProperties;
 };
