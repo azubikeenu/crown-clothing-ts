@@ -6,7 +6,7 @@ import {
   fetchCategoriesSuccess,
   fetchCategoriesFailed,
 } from './categories.action';
-import { CATEGORIES_ACTION } from './cartegories.action.types';
+import { CATEGORIES_ACTION } from './cartegories.types';
 
 
 

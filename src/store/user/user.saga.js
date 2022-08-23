@@ -1,5 +1,5 @@
 import { call, takeLatest, all, put } from 'redux-saga/effects';
-import { USER_ACTIONS } from './user.actions.types';
+import { USER_ACTIONS } from './user.types';
 import {
   getCurrentUser,
   createUserDoc,

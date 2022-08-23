@@ -1,9 +1,16 @@
 /*Remove an item from the cart */
-export const removeItemFromCart = (product, cartItems) =>
-  cartItems.filter((item) => item.id !== product.id);
+import { CartItem } from './carttypes';
+
+export const removeItemFromCart = (
+  product: CartItem,
+  cartItems: CartItem[]
+): CartItem[] => cartItems.filter((item) => item.id !== product.id);
 
 /*Decrement the cart Item count */
-export const decrementProductCount = (product, cartItems) => {
+export const decrementProductCount = (
+  product: CartItem,
+  cartItems: CartItem[]
+): CartItem[] => {
   if (product.quantity === 1) return removeItemFromCart(product, cartItems);
   return cartItems.map((item) => {
     return item.id === product.id
@@ -12,7 +19,10 @@ export const decrementProductCount = (product, cartItems) => {
   });
 };
 /*Add an item to the cart  */
-export const addCartItem = (product, cartItems) => {
+export const addCartItem = (
+  product: CartItem,
+  cartItems: CartItem[]
+): CartItem[] => {
   const isProductExisting = cartItems.find((item) => item.id === product.id);
   if (isProductExisting) {
     return cartItems.map((item) => {

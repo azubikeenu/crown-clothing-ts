@@ -13,8 +13,10 @@ const CheckoutItem = ({ cartItem }) => {
   // const { addItemToCart, removeItem, decrementCount } = useContext(CartContext);
   const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
+
   const IncrementQuantityHandler = () =>
     dispatch(addItemToCart(cartItem, cartItems));
+
   const decrementQuantityHandler = () =>
     dispatch(decrementCount(cartItem, cartItems));
 
