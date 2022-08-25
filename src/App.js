@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import Navigation from './components/routes/navigation/navigation.component';
 import Authentication from './components/routes/authentication/authentication.component';
 import Shop from './components/routes/shop/shop.component';
+
 // import {
 //   onAuthStateChangedListener,
 //   createUserDoc,
@@ -17,20 +18,9 @@ import { checkUserSession } from './store/user/user.actions';
 const App = () => {
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChangedListener(async (user) => {
-  //     if (user) {
-  //       await createUserDoc(user);
-  //     }
-  //     // this dispatches actions to the root reducer which in turns passes the actions to every single reducer dispatch function
-  //     dispatch(setCurrentUser(user));
-  //   });
-  //   return unsubscribe;
-  // }, [dispatch]);
-
   useEffect(() => {
     dispatch(checkUserSession());
-  });
+  },[dispatch]);
   return (
     <Routes>
       <Route path="/" element={<Navigation />}>

@@ -3,7 +3,6 @@ import {
   signInSuccess,
   signInFailure,
   signupStart,
-  signUpSuccess,
   signupFailure,
   signOutSuccess,
   signOutFailure,
@@ -25,17 +24,14 @@ export const userReducer = (
   state = INITIAL_STATE,
   action: AnyAction
 ): UserState => {
-  if (signInSuccess.match(action.type)) {
+  if (signInSuccess.match(action)) {
     return { ...state, currentUser: action.payload };
   }
-
-  if (signupStart.match(action.type)) {
+  if (signupStart.match(action)) {
     return { ...state, isLoading: true };
   }
-  if (signUpSuccess.match(action.type)) {
-    return { ...state, currentUser: action.payload, isLoading: false };
-  }
-  if (signOutSuccess.match(action.type)) {
+
+  if (signOutSuccess.match(action)) {
     return { ...state, currentUser: null };
   }
   if (
@@ -45,6 +41,5 @@ export const userReducer = (
   ) {
     return { ...state, error: action.payload };
   }
-
   return state;
 };

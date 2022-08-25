@@ -4,17 +4,15 @@ import {
   selectIsCartOpened,
   selectCartCount,
 } from '../../store/cart/cart.selector';
-// import { useContext } from 'react';
-// import { CartContext } from '../../contexts/cart.context';
-import { setIsCartOpened } from '../../store/cart/cart.actions';
+
+import { setIsCartOpenedAction } from '../../store/cart/cart.actions';
 import { CartIconContainer, ItemCount } from './cart-icon.styles';
 
 const CartIcon = () => {
-  // const { setIsCartOpened, isCartOpened, cartCount } = useContext(CartContext);
   const cartCount = useSelector(selectCartCount);
   const isCartOpened = useSelector(selectIsCartOpened);
   const dispatch = useDispatch();
-  const toggleIsCartOpened = () => dispatch(setIsCartOpened(!isCartOpened));
+  const toggleIsCartOpened = () => dispatch(setIsCartOpenedAction(!isCartOpened));
   return (
     <CartIconContainer onClick={toggleIsCartOpened}>
       <ShoppingIcon />

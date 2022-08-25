@@ -1,3 +1,4 @@
+import { User } from 'firebase/auth';
 import { ObjectProperties, UserData } from '../../utils/firebase.utils';
 import {
   ActionWithPayload,
@@ -29,7 +30,10 @@ export type EmailSignInAction = ActionWithPayload<
   EmailSignInCredentials
 >;
 
-export type SignInSuccessAction = Action<USER_ACTIONS.SIGN_IN_SUCCESS>;
+export type SignInSuccessAction = ActionWithPayload<
+  USER_ACTIONS.SIGN_IN_SUCCESS,
+  UserData
+>;
 
 export type SignInFailureAction = ActionWithPayload<
   USER_ACTIONS.SIGN_IN_FAILURE,
@@ -82,8 +86,9 @@ export const emailSignIn = withMatcher(
 );
 
 export const signInSuccess = withMatcher(
-  (user: UserData): SignInSuccessAction =>
-    createAction(USER_ACTIONS.SIGN_IN_SUCCESS, user)
+  (user: UserData & { id: string }): SignInSuccessAction => {
+    return createAction(USER_ACTIONS.SIGN_IN_SUCCESS, user);
+  }
 );
 
 export const signInFailure = withMatcher(
@@ -101,7 +106,7 @@ export const signupStart = withMatcher(
 );
 
 export const signUpSuccess = withMatcher(
-  (user: UserData, objectProperties: ObjectProperties): SignUpSuccessAction =>
+  (user: User, objectProperties: ObjectProperties): SignUpSuccessAction =>
     createAction(USER_ACTIONS.SIGN_UP_SUCCESS, {
       user,
       objectProperties,

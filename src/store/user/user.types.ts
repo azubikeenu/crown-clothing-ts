@@ -1,4 +1,5 @@
-import { ObjectProperties, UserData } from '../../utils/firebase.utils';
+import { ObjectProperties } from '../../utils/firebase.utils';
+import { User } from 'firebase/auth';
 
 export enum USER_ACTIONS {
   SET_CURRENT_USER = 'user/SET_CURRENT_USER',
@@ -22,6 +23,6 @@ export type UserSignUp = {
 };
 
 export type UserSignUpSuccess = {
-  user: UserData;
+  user: User;
   objectProperties: ObjectProperties;
 };

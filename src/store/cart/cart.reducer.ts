@@ -1,4 +1,3 @@
-import { CART_ACTIONS } from './carttypes';
 import { CartItem } from './carttypes';
 import { AnyAction } from 'redux';
 import { setCartItemsAction, setIsCartOpenedAction } from './cart.actions';
@@ -15,7 +14,7 @@ const INITIAL_STATE: CartState = {
 
 export const cartReducer = (
   state = INITIAL_STATE,
-  action = {} as AnyAction
+  action: AnyAction
 ): CartState => {
   if (setCartItemsAction.match(action)) {
     return { ...state, cartItems: action.payload };

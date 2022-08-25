@@ -14,13 +14,12 @@ export function withMatcher<
   AC extends (...args: any[]) => AnyAction & { type: string }
 >(actionCreator: AC): Matchable<AC>;
 
-// this makes the passed action a matchable
 export function withMatcher(actionCreator: Function) {
   const type = actionCreator().type;
   return Object.assign(actionCreator, {
     type,
     match(action: AnyAction) {
-      return (action.type = type);
+      return action.type === type;
     },
   });
 }

@@ -3,6 +3,7 @@ import {
   createAction,
   withMatcher,
 } from '../../utils/reducers/reducer.utils';
+import { CategoryItem } from '../categories/cartegories.types';
 import { CartItem, CART_ACTIONS } from './carttypes';
 import {
   addCartItem,
@@ -21,8 +22,9 @@ export type SetIsCartOpenedAction = ActionWithPayload<
 >;
 
 export const setCartItemsAction = withMatcher(
-  (cartItems: CartItem[]): SetCartItemsAction =>
-    createAction(CART_ACTIONS.SET_CART_ITEMS, cartItems)
+  (cartItems: CartItem[]): SetCartItemsAction => {
+    return createAction(CART_ACTIONS.SET_CART_ITEMS, cartItems);
+  }
 );
 
 export const setIsCartOpenedAction = withMatcher(
@@ -32,22 +34,22 @@ export const setIsCartOpenedAction = withMatcher(
 );
 
 export const addItemToCart = withMatcher(
-  (itemToAdd: CartItem, cartItems: CartItem[]): SetCartItemsAction => {
-    const newCartItems = addCartItem(itemToAdd, cartItems);
-    return createAction(CART_ACTIONS.SET_CART_ITEMS, newCartItems);
+  (itemToAdd: CategoryItem, cartItems: CartItem[]): SetCartItemsAction => {
+    const newCartItems = cartItems && addCartItem(itemToAdd, cartItems);
+    return setCartItemsAction(newCartItems);
   }
 );
 
 export const decrementCount = withMatcher(
   (product: CartItem, cartItems: CartItem[]): SetCartItemsAction => {
-    const newCartItems = decrementProductCount(product, cartItems);
-    return createAction(CART_ACTIONS.SET_CART_ITEMS, newCartItems);
+    const newCartItems = cartItems && decrementProductCount(product, cartItems);
+    return setCartItemsAction(newCartItems);
   }
 );
 
 export const removeItem = withMatcher(
   (product: CartItem, cartItems: CartItem[]) => {
-    const newCartItems = removeItemFromCart(product, cartItems);
-    return createAction(CART_ACTIONS.SET_CART_ITEMS, newCartItems);
+    const newCartItems = cartItems && removeItemFromCart(product, cartItems);
+    return setCartItemsAction(newCartItems);
   }
 );

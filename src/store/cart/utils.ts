@@ -1,8 +1,9 @@
 /*Remove an item from the cart */
+import { CategoryItem } from '../categories/cartegories.types';
 import { CartItem } from './carttypes';
 
 export const removeItemFromCart = (
-  product: CartItem,
+  product: CategoryItem,
   cartItems: CartItem[]
 ): CartItem[] => cartItems.filter((item) => item.id !== product.id);
 
@@ -20,10 +21,11 @@ export const decrementProductCount = (
 };
 /*Add an item to the cart  */
 export const addCartItem = (
-  product: CartItem,
+  product: CategoryItem,
   cartItems: CartItem[]
 ): CartItem[] => {
-  const isProductExisting = cartItems.find((item) => item.id === product.id);
+  const isProductExisting =
+    cartItems && cartItems.find((item) => item.id === product.id);
   if (isProductExisting) {
     return cartItems.map((item) => {
       return item.id === isProductExisting.id
