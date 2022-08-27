@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
+import { AuthError, AuthErrorCodes } from 'firebase/auth';
 import FormInput from '../form-input/form-input.component';
-import Button from '../button/button.component';
+import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 import { SignUpFormContainer } from './sign-up-form.styles';
 import { signupStart } from '../../store/user/user.actions';
 
@@ -16,36 +17,26 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert('Passwords dont match');
     }
     try {
-      // const { user } = await createAuthUserWithEmailAndPassword(
-      //   email,
-      //   password
-      // );
-
-      // if (!user) {
-      //   throw new Error('The user could not be created');
-      // }
-      // await createUserDoc(user, { displayName });
       dispatch(signupStart(email, password, displayName));
-
       resetFormFields();
     } catch (err) {
-      if (err.code === 'auth/email-already-in-use') {
+      if ((err as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
         return alert('Cannot Register user , Email already in use');
       } else {
-        console.log('An Error occured during signup', err.message);
+        console.log('An Error occured during signup', err);
       }
     }
   };
 
   const resetFormFields = () => setFormFields(defaultFields);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
@@ -89,7 +80,9 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
         />
-        <Button type="submit">Sign Up</Button>
+        <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
+          Sign Up
+        </Button>
       </form>
     </SignUpFormContainer>
   );

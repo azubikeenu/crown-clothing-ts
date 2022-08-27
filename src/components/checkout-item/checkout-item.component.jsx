@@ -1,5 +1,3 @@
-// import { useContext } from 'react';
-// import { CartContext } from '../../contexts/cart.context';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   removeItem,
@@ -7,10 +5,18 @@ import {
   addItemToCart,
 } from '../../store/cart/cart.actions';
 import { selectCartItems } from '../../store/cart/cart.selector';
-import './checkout-item.styles.scss';
+
+import {
+  CheckoutItemContainer,
+  BaseSpan,
+  Arrow,
+  ImageContainer,
+  Quantity,
+  RemoveButton,
+  Value,
+} from './checkout-item.styles';
 
 const CheckoutItem = ({ cartItem }) => {
-  // const { addItemToCart, removeItem, decrementCount } = useContext(CartContext);
   const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
 
@@ -23,25 +29,19 @@ const CheckoutItem = ({ cartItem }) => {
   const removeItemHandler = () => dispatch(removeItem(cartItem, cartItems));
   const { imageUrl, name, price, quantity } = cartItem;
   return (
-    <div className="checkout-item-container">
-      <div className="image-container">
+    <CheckoutItemContainer>
+      <ImageContainer>
         <img src={imageUrl} alt={name} />
-      </div>
-      <span className="name">{name}</span>
-      <span className="quantity">
-        <div className="arrow" onClick={decrementQuantityHandler}>
-          &#10094;
-        </div>
-        <span className="value"> {quantity}</span>
-        <div className="arrow" onClick={IncrementQuantityHandler}>
-          &#10095;
-        </div>
-      </span>
-      <span className="price">{price}</span>
-      <div className="remove-button" onClick={removeItemHandler}>
-        &#10005;
-      </div>
-    </div>
+      </ImageContainer>
+      <BaseSpan>{name}</BaseSpan>
+      <Quantity>
+        <Arrow onClick={decrementQuantityHandler}>&#10094;</Arrow>
+        <Value> {quantity}</Value>
+        <Arrow onClick={IncrementQuantityHandler}>&#10095;</Arrow>
+      </Quantity>
+      <BaseSpan>{price}</BaseSpan>
+      <RemoveButton onClick={removeItemHandler}>&#10005;</RemoveButton>
+    </CheckoutItemContainer>
   );
 };
 

@@ -8,7 +8,6 @@ import {
 } from '../../../store/categories/cartegories.selector';
 
 const CategoriesPreview = () => {
-  // const { categoriesMap } = useContext(CategoriesContext);
   const categoriesMap = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectCategoriesIsLoading);
   return (

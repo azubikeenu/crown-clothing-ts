@@ -12,7 +12,6 @@ const Shop = () => {
     dispatch(fetchCategoriesStart());
   }, [dispatch]);
 
-
   return (
     <Routes>
       <Route index element={<CategoriesPreview />} />

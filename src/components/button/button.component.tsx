@@ -1,4 +1,3 @@
-import './button.styles.scss';
 import { BASE_BUTTON, INVERTED_BUTTON, GOOGLE_BUTTON } from './button.styles';
 import { ButtonHTMLAttributes } from 'react';
 
@@ -21,7 +20,11 @@ export type ButtonProps = {
   buttonType: BUTTON_TYPE_CLASSES;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button = ({ children, buttonType, ...otherProps }: ButtonProps) => {
+const Button: React.FunctionComponent<ButtonProps> = ({
+  children,
+  buttonType,
+  ...otherProps
+}) => {
   const CustomButton = getButton(buttonType);
   return <CustomButton {...otherProps}>{children}</CustomButton>;
 };
